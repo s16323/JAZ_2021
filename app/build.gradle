@@ -1,0 +1,27 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'    // sam dba o to, żeby wersje zależności się zgadzały ze sobą na wzajem
+    id 'java'
+}
+group 'pl.edu.pjwstk.jaz'
+version '1.0-SNAPSHOT'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'       // spring web - tworzenie endpointów, zasoby restowe (.json)
+    implementation 'org.springframework.boot:spring-boot-starter-security'  // klasy pakietu bezpieczeństwa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA i nakładka springowa na JPA, np. potrafi sam generować querry...
+
+    implementation 'org.liquibase:liquibase-core'                           // biblioteka zarządzająca bazą danych (struktura bazy i zarządzanie nią)
+    implementation 'org.springframework.data:spring-data-commons'
+    implementation 'org.postgresql:postgresql'                              // sterownik do DB Postgresa
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {   // biblioteki pomagające przy testowaniu
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'junit:junit:4.12'                       // teraz junit bedzie dostępny tylko w scope: test
+    testImplementation 'org.assertj:assertj-core:3.11.1'        // asercje
+    testImplementation 'org.testcontainers:postgresql:1.14.3'   // testowanie integracyjne za pomocą kontenerów
+    testImplementation 'io.rest-assured:rest-assured'           // biblioteka wspomagająca testowanie end-to-end (np. 'czy odpowiedź serwera jest dokładnie taka jakiej oczekuje klient?')
+}
